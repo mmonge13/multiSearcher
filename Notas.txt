@@ -1,0 +1,13 @@
+Py_01_GSearch
+Codigo the python sencillo para escribir y buscar directamente en google
+
+Py_02_GOperator
+Codigo de python donde se pone en practica el uso de operadores
+Se hace busqueda por mdeio de operadores de google, donde el usuario pueda 
+implementar entre uno y/o varios operadores.
+
+py_03_Searcher
+Codigo the python que permite buscar en mas de un buscador en internet
+
+Py_04_Navigator
+Codigo the python que te permite buscar en mas de un navegador

@@ -1,51 +1,28 @@
-"""
-Módulo webbrowser: Proporciona una interfaz de alto nivel
-para abrir páginas web en un navegador web predeterminado.
-"""
-import webbrowser
+import subprocess
 
+# Término de búsqueda
+search_query = input('Ingrese el término de búsqueda: ')
 
-def google_search(newquery):
-    """
-    Abre el navegador web predeterminado con una 
-    búsqueda en Google basada en la consulta proporcionada.
+# Diccionario con nombres de navegadores y sus ubicaciones en el sistema
+browsers = {
+    # Ejemplo de ubicación de Chrome en Windows
+    'chrome': r'C:\Program Files\Google\Chrome\Application\chrome.exe',
+    # Ejemplo de ubicación de Edge en Windows
+    'msedge': r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe',
+    # Ejemplo de ubicación de Firefox en Windows
+    'firefox': r'C:\Program Files\Mozilla Firefox\firefox.exe',
+    # Puedes agregar más navegadores y sus ubicaciones aquí
+}
 
-    :param query: La cadena de consulta que se utilizará para buscar en Google.
-    :type query: str
-    """
+# Intenta abrir cada navegador con los resultados de la búsqueda
+for browser, path in browsers.items():
+    print(f'Buscando "{search_query}" en {browser}...')
+
     try:
-        # Construct the Google search URL
-        search_url = f"https://www.google.com/search?q={newquery}"
+        subprocess.Popen(
+            [path, f'https://www.google.com/search?q={search_query}'])
+    except FileNotFoundError:
+        print(
+            f'{browser} no se encontró en tu sistema o la ubicación del navegador es incorrecta.')
 
-        # Open the default web browser with the search URL
-        webbrowser.open(search_url)
-
-    except ValueError as error:
-        print(f"An error occurred: {str(error)}")
-
-
-# Welcome Message
-print("Welcome! I'm your Python search assistant.")
-
-search_queries = []  # List to store search queries
-
-print("What would you like to search for today? (Type 'thank' to exit, or 'done' to perform searches): ")  # pylint: disable=line-too-long
-while True:
-    # Ask the user what they would like to search for
-    user_query = input()
-
-    # Check if the user wants to exit
-    if user_query.lower() in ("thank"):
-        print("Thank you for using the search assistant. Goodbye!")
-        break
-    if user_query.lower() == "done":
-        if search_queries:
-            print("Performing searches...")
-            for query in search_queries:
-                google_search(query)
-            search_queries = []  # Clear the list
-        else:
-            print("No searches to perform.")
-    else:
-        # Add the query to the list
-        search_queries.append(user_query)
+# Si deseas, puedes agregar más navegadores y ubicaciones a la lista 'browsers'
